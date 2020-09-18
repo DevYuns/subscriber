@@ -10,10 +10,15 @@ async function main() {
   const subscriptionClient = sbClient.createSubscriptionClient(topicName, subscriptionName);
   const receiver = subscriptionClient.createReceiver(ReceiveMode.receiveAndDelete);
 
+  const retry = 10;
   try {
-    const messages = await receiver.receiveMessages(100);
-    console.log('Received messages:');
-    console.log(messages.map((message: { body: any; }) => message.body));
+    for (let i = 0; i<=retry; i++) {
+      const messages = await receiver.receiveMessages(100);
+
+      if(Array.isArray(messages) && messages.length === 0) continue;
+      console.log('Received messages:');
+      console.log(messages.map((message: { body: any; }) => message.body));
+    }
 
     await subscriptionClient.close();
   } finally {
