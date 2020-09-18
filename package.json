@@ -6,7 +6,10 @@
   "author": "thomas",
   "license": "MIT",
   "private": false,
-   "start": "tsc && node build/index",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "tsc && node build/index"
+  },
   "dependencies": {
     "@azure/service-bus": "^1.1.10",
     "typescript": "^4.0.2"
